@@ -1,0 +1,6 @@
+*
+!.gitignore
+!config.def.h
+!patches.def.h
+!config.mk
+!LICENSE
