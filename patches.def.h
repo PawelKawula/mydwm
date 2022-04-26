@@ -184,7 +184,7 @@
 #define BAR_WINICON_PATCH 0
 
 /* Show window title in bar */
-#define BAR_WINTITLE_PATCH 1
+#define BAR_WINTITLE_PATCH 0
 
 /* Shows window titles in the bar, but only for floating clients.
  * This depends on code from the flexwintitle patch.
@@ -421,7 +421,7 @@
  * This patch interferes with the center transient windows patches.
  * https://dwm.suckless.org/patches/alwayscenter/
  */
-#define ALWAYSCENTER_PATCH 0
+#define ALWAYSCENTER_PATCH 1
 
 /* This patch allows windows to be resized with its aspect ratio remaining constant.
  * https://dwm.suckless.org/patches/aspectresize/
@@ -445,7 +445,7 @@
  * This patch takes precedence over ATTACHBOTTOM_PATCH.
  * https://dwm.suckless.org/patches/attachbelow/
  */
-#define ATTACHBELOW_PATCH 1
+#define ATTACHBELOW_PATCH 0
 
 /* This patch adds new clients at the bottom of the stack.
  * https://dwm.suckless.org/patches/attachbottom/
@@ -667,7 +667,7 @@
  * https://github.com/mihirlad55/dwm-ipc
  * https://dwm.suckless.org/patches/ipc/
  */
-#define IPC_PATCH 1
+#define IPC_PATCH 0
 
 /* Adds rule option for clients to avoid accidental termination by killclient for sticky windows.
  * https://dwm.suckless.org/patches/ispermanent/
@@ -713,7 +713,7 @@
  *    - libmpdclient
  * https://dwm.suckless.org/patches/mpdcontrol/
  */
-#define MPDCONTROL_PATCH 1
+#define MPDCONTROL_PATCH 0
 
 /* Adds rules per monitor, e.g. have default layouts per monitor.
  * The use case for this is if the second monitor is vertical (i.e. rotated) then
@@ -761,7 +761,7 @@
  * compilation error because two lines of code hardcode dmenu into dwm.
  * https://dwm.suckless.org/patches/nodmenu/
  */
-#define NODMENU_PATCH 0
+#define NODMENU_PATCH 1
 
 /* This patch allows for toggleable client button bindings that have no modifiers.
  * This can, for example, allow you to move or resize using the mouse alone without holding
@@ -807,7 +807,7 @@
  * monitor (default).
  * https://dwm.suckless.org/patches/pertag/
  */
-#define PERTAG_PATCH 0
+#define PERTAG_PATCH 1
 
 /* Option to store gaps on a per tag basis rather than on a per monitor basis.
  * Depends on both pertag and vanitygaps patches being enabled.
@@ -877,7 +877,7 @@
 /* This patch let's you rotate through the stack using keyboard shortcuts.
  * https://dwm.suckless.org/patches/rotatestack/
  */
-#define ROTATESTACK_PATCH 1
+#define ROTATESTACK_PATCH 0
 
 /* This patch adds rounded corners to client windows in dwm.
  * You need to uncomment the corresponding line in config.mk to use the -lXext library
@@ -904,7 +904,7 @@
  * https://lists.suckless.org/hackers/2004/17205.html
  * https://dwm.suckless.org/patches/scratchpads/
  */
-#define SCRATCHPADS_PATCH 0
+#define SCRATCHPADS_PATCH 1
 
 /* Minor alteration of the above allowing clients to keep their size and position when shown */
 #define SCRATCHPADS_KEEP_POSITION_AND_SIZE_PATCH 0
@@ -1001,7 +1001,7 @@
 /* Adds toggleable keyboard shortcut to make a client 'sticky', i.e. visible on all tags.
  * https://dwm.suckless.org/patches/sticky/
  */
-#define STICKY_PATCH 0
+#define STICKY_PATCH 1
 
 /* This patch adds "window swallowing" to dwm as known from Plan 9's windowing system rio.
  * Clients marked with isterminal in config.h swallow a window opened by any child process,
@@ -1151,13 +1151,13 @@
  * while increasing or decreasing the master area (nmaster) accordingly.
  * https://dwm.suckless.org/patches/transfer/
  */
-#define TRANSFER_PATCH 0
+#define TRANSFER_PATCH 1
 
 /* Lets you transfer all clients between the master and stack area
  * while increasing or decreasing the master area (nmaster) accordingly.
  * https://dwm.suckless.org/patches/transfer/
  */
-#define TRANSFER_ALL_PATCH 0
+#define TRANSFER_ALL_PATCH 1
 
 /* This patch resets isfloating on any visible windows that have it set.
  * Optionally also applies a layout.
@@ -1187,7 +1187,7 @@
  * when the mouse cursor is (a) on a different screen or (b) on top of a different window.
  * https://dwm.suckless.org/patches/warp/
  */
-#define WARP_PATCH 0
+#define WARP_PATCH 1
 
 /* Sometimes a single application opens different windows depending on the task
  * at hand and this is often reflected in the WM_WINDOW_ROLE(STRING) x property.
@@ -1235,7 +1235,7 @@
 /* Bottomstack layout.
  * https://dwm.suckless.org/patches/bottomstack/
  */
-#define BSTACK_LAYOUT 0
+#define BSTACK_LAYOUT 1
 
 /* Bottomstack horizontal layout.
  * https://dwm.suckless.org/patches/bottomstack/
@@ -1266,12 +1266,12 @@
 /* Fibonacci dwindle layout.
  * https://dwm.suckless.org/patches/fibonacci/
  */
-#define FIBONACCI_DWINDLE_LAYOUT 0
+#define FIBONACCI_DWINDLE_LAYOUT 1
 
 /* Fibonacci spiral layout.
  * https://dwm.suckless.org/patches/fibonacci/
  */
-#define FIBONACCI_SPIRAL_LAYOUT 0
+#define FIBONACCI_SPIRAL_LAYOUT 1
 
 /* Flextile deluxe layout.
  * A revamped, more flexible, and over-the-top version of the original flextile layout.

@@ -1,4 +1,9 @@
 /* See LICENSE file for copyright and license details. */
+#include <X11/XF86keysym.h>
+
+static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
+static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
+static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL };
 
 /* appearance */
 #if ROUNDED_CORNERS_PATCH
@@ -129,7 +134,7 @@ static const char font[]                 = "monospace 10";
 #else
 static const char *fonts[]               = { "FiraCode Nerd Font Mono:size=13" };
 #endif // BAR_PANGO_PATCH
-static const char dmenufont[]            = "monospace:size=10";
+static const char dmenufont[]            = "FiraCode Nerd Font Mono:size=10";
 static char col_gray1[]       = "#2e3440";
 static char col_gray2[]       = "#2e3440";
 static char col_gray3[]       = "#81a1c1";
@@ -289,11 +294,14 @@ static char *colors[][ColCount] = {
 	//[SchemeNorm]         = { normfgcolor,      normbgcolor,      normbordercolor,      normfloatcolor },
 	[SchemeNorm]         = { col_gray3,        col_gray1,        col_gray2,            col_gray2},
 	[SchemeSel]          = { selfgcolor,       selbgcolor,       selbordercolor,       selfloatcolor },
-	[SchemeTitleNorm]    = { titlenormfgcolor, titlenormbgcolor, titlenormbordercolor, titlenormfloatcolor },
-	[SchemeTitleSel]     = { titleselfgcolor,  titleselbgcolor,  titleselbordercolor,  titleselfloatcolor },
+	//[SchemeTitleNorm]    = { titlenormfgcolor, titlenormbgcolor, titlenormbordercolor, titlenormfloatcolor },
+	[SchemeTitleNorm]    = { col_gray3,        col_gray1,        titlenormbordercolor, titlenormfloatcolor },
+	//[SchemeTitleSel]     = { titleselfgcolor,  titleselbgcolor,  titleselbordercolor,  titleselfloatcolor },
+	[SchemeTitleSel]     = { col_gray1,        col_gray3,        titleselbordercolor,  titleselfloatcolor },
 	//[SchemeTagsNorm]     = { tagsnormfgcolor,  tagsnormbgcolor,  tagsnormbordercolor,  tagsnormfloatcolor },
-	[SchemeTagsNorm]     = { col_gray1,        col_gray3,        tagsnormbordercolor,  tagsnormfloatcolor },
-	[SchemeTagsSel]      = { tagsselfgcolor,   tagsselbgcolor,   tagsselbordercolor,   tagsselfloatcolor },
+	[SchemeTagsNorm]     = { col_gray3,        col_gray1,        tagsnormbordercolor,  tagsnormfloatcolor },
+	//[SchemeTagsSel]      = { tagsselfgcolor,   tagsselbgcolor,   tagsselbordercolor,   tagsselfloatcolor },
+	[SchemeTagsSel]      = { col_gray1,        col_gray3,        tagsselbordercolor,   tagsselfloatcolor },
 	[SchemeHidNorm]      = { hidnormfgcolor,   hidnormbgcolor,   c000000,              c000000 },
 	[SchemeHidSel]       = { hidselfgcolor,    hidselbgcolor,    c000000,              c000000 },
 	[SchemeUrg]          = { urgfgcolor,       urgbgcolor,       urgbordercolor,       urgfloatcolor },
@@ -810,16 +818,19 @@ static const char *dmenucmd[] = {
 	#if !NODMENU_PATCH
 	"-m", dmenumon,
 	#endif // NODMENU_PATCH
-	"-fn", dmenufont,
-	"-nb", normbgcolor,
-	"-nf", normfgcolor,
-	"-sb", selbgcolor,
-	"-sf", selfgcolor,
+	//"-fn", dmenufont,
+	//"-nb", normbgcolor,
+	//"-nf", normfgcolor,
+	//"-sb", selbgcolor,
+	//"-sf", selfgcolor,
 	#if BAR_DMENUMATCHTOP_PATCH
 	topbar ? NULL : "-b",
 	#endif // BAR_DMENUMATCHTOP_PATCH
 	NULL
 };
+
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+
 static const char *termcmd[]  = { "alacritty", NULL };
 
 #if BAR_STATUSCMD_PATCH
@@ -847,12 +858,16 @@ static Key on_empty_keys[] = {
 #endif // ON_EMPTY_KEYS_PATCH
 
 static Key keys[] = {
+  { 0,                            XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)")  },
+	{ 0,                            XF86XK_AudioMute,        spawn, SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)")  },
+	{ 0,                            XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY,                       XK_e,                    spawn, SHCMD("emacsclient -c") },
 	/* modifier                     key            function                argument */
 	#if KEYMODES_PATCH
 	{ MODKEY,                       XK_Escape,     setkeymode,             {.ui = COMMANDMODE} },
 	#endif // KEYMODES_PATCH
 	{ MODKEY,                       XK_p,          spawn,                  {.v = dmenucmd } },
-	{ MODKEY,                       XK_Return,     spawn,                  {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_Return,     spawn,                  {.v = termcmd } },
 	#if RIODRAW_PATCH
 	{ MODKEY|ControlMask,           XK_p,          riospawnsync,           {.v = dmenucmd } },
 	{ MODKEY|ControlMask,           XK_Return,     riospawn,               {.v = termcmd } },
@@ -975,7 +990,7 @@ static Key keys[] = {
 	#if BAR_WINTITLEACTIONS_PATCH
 	{ MODKEY|ControlMask,           XK_z,          showhideclient,         {0} },
 	#endif // BAR_WINTITLEACTIONS_PATCH
-	{ MODKEY,                       XK_x,          killclient,             {0} },
+	{ MODKEY,                       XK_q,          killclient,             {0} },
 	#if KILLUNSEL_PATCH
 	{ MODKEY|ShiftMask,             XK_x,          killunsel,              {0} },
 	#endif // KILLUNSEL_PATCH
